@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [token, setToken] = useState('');
+
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,6 +20,8 @@ const Login = () => {
             })
             setToken(response.data.token)
             setMessage('')
+            localStorage.setItem('token', response.data.token)
+            navigate('/protected')
         } catch (e) {
             setMessage(e.response.data.message || 'Login failed')
             setPassword('')
@@ -49,13 +53,18 @@ const Login = () => {
                     />
                     <button
                         className="bg-slate-500 hover:bg-slate-600 text-white text-xl rounded-lg w-[8rem] h-[2rem] transition"
-                        type="submit">Login</button>
+                        type="submit">Login
+                    </button>
 
                     <Link to="/register">
                         <p className="text-white text-xl hover:text-slate-300 transition">Don't have an account?</p>
                     </Link>
+                    <Link to="/"><button
+                        className="w-[10rem] h-[4rem] bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-2 my-3 transition">
+                        Home
+                    </button></Link>
                 </form>
-                {message && <p>{message}</p>}
+                {message && <p className="text-xl text-red-500">{message}</p>}
             </div>
 
             {token && <p>{token}</p>}

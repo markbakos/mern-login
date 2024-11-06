@@ -51,7 +51,12 @@ const Register = () => {
                     <Link to="/login">
                         <p className="text-white text-xl hover:text-slate-300 transition">Already have an account?</p>
                     </Link>
-                    {message && <p>{message}</p>}
+
+                    <Link to="/"><button
+                        className="w-[10rem] h-[4rem] bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-2 my-3 transition">
+                        Home
+                    </button></Link>
+                    {message && <p className="text-xl text-red-500">{message}</p>}
                 </form>
             </div>
             </div>

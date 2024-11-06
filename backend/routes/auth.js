@@ -41,7 +41,10 @@ router.post('/login', async (req, res) => {
        return res.status(400).json({message: 'Invalid credentials'});
    }
 
-   const token = jwt.sign({ id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+   const token = jwt.sign(
+       { id: user._id, username: user.username},
+       process.env.JWT_SECRET,
+       {expiresIn: '1h'});
 
    res.json( {token});
 });
@@ -49,5 +52,19 @@ router.post('/login', async (req, res) => {
 router.get('/protected', authenticateToken, (req, res) => {
     res.json({ message: `Hello, ${req.user.id}. You have access to this resource`});
 });
+
+router.get('/verify', (req,res) => {
+    const token = req.headers.authorization?.split(' ')[1]
+    if(!token) {
+        return res.status(401).json({message: 'Access Denied: No Token Provided'});
+    }
+
+    try{
+        return res.status(200).json({ message: 'Token is valid'})
+    }
+    catch (e) {
+        return res.status(401).json( { message: 'Invalid Token' });
+    }
+})
 
 module.exports = router;
