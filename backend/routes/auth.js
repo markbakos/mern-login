@@ -58,7 +58,6 @@ router.get('/verify', (req,res) => {
     if(!token) {
         return res.status(401).json({message: 'Access Denied: No Token Provided'});
     }
-
     try{
         return res.status(200).json({ message: 'Token is valid'})
     }
