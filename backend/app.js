@@ -9,8 +9,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5002;
 
+const allowedOrigins = ['https://mern-login-1klb.onrender.com/login', 'https://mern-login-1klb.onrender.com/register']
 app.use(cors({
-    origin: 'https://mern-login-1klb.onrender.com/*',
+    origin: function (origin, callback) {
+        if(allowedOrigins.includes(origin) || !origin) {
+            callback(null, true)
+        } else{
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
 }));
 
 app.use(express.json());
