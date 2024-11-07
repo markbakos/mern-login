@@ -20,6 +20,7 @@ const Login = () => {
             })
             setToken(response.data.token)
             setMessage('')
+            localStorage.setItem('username', username)
             localStorage.setItem('token', response.data.token)
             navigate('/protected')
         } catch (e) {
@@ -66,8 +67,6 @@ const Login = () => {
                 </form>
                 {message && <p className="text-xl text-red-500">{message}</p>}
             </div>
-
-            {token && <p>{token}</p>}
         </div>
     )
 }
