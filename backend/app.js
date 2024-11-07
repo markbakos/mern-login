@@ -10,7 +10,17 @@ const app = express();
 const PORT = process.env.PORT || 5002;
 
 app.use(cors({
-    origin: '*'
+    origin: 'https://mern-login-frontend-x4uz.onrender.com',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
+app.options('*', cors({
+    origin: 'https://mern-login-frontend-x4uz.onrender.com',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
 
 app.use(express.json());
