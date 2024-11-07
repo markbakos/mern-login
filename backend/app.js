@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 5002;
 
 app.use(cors({
-    origin: 'https://mern-login-92b2.onrender.com'
+    origin: 'https://mern-login-frontend-x4uz.onrender.com'
 }));
 
 app.use(express.json());
