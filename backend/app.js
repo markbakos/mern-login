@@ -10,14 +10,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5002;
 
-
-
-app.use(express.json());
-app.use('/api/auth', authRoutes);
-
 app.use(cors({
     origin: 'https://mern-login-1klb.onrender.com'
-}))
+}));
+
+app.use(express.json());
+
+app.use('/api/auth', authRoutes);
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
@@ -25,21 +24,21 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     res.send('Backend is running!');
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
 });
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => {
-    console.log('MongoDB connected...')
-})
-.catch(err => {
-    console.error('MongoDB connection error:',err)
+    .then(() => {
+        console.log('MongoDB connected...')
+    })
+    .catch(err => {
+        console.error('MongoDB connection error:', err)
+    });
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
