@@ -10,7 +10,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post('https://mern-login-backend-vwgd.onrender.com/api/auth/register', {
+            const response = await axios.post('https://mern-login-backend-4860.onrender.com/api/auth/register', {
                 username,
                 password
             })
